@@ -17,3 +17,12 @@ In general, this example contains the following steps:
 3. Read and split data for machine learning: Build, train, and test the encoder-decoder LSTM model using Keras.
 4. Save the work: tore models, output data, and any necessary data structure in /tmp directory.
 5. Backup: Transfer the aforementioned files to a GCP bucket.
+
+At the test phase in step 3 above, holdout data is used. In general, the model reads the holdout data's input sequence, then:
+
+1. The model predicts a sequence of touchpoints by words. Each word represents a touchpoint. The sequence may or may not include the word 'visit'.
+2. If the prediction contains the word 'visit', this sequence is labeled as 1.
+3. Compare this prediction to the corresponding truth sequence. If the truth sequence contains 'visit', the truth sequence is also labeled as 1. 
+4. Build the confusion matrix between truth and predicted sequences.
+5. Calculate and output model KPI.
+
